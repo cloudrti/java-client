@@ -1,0 +1,48 @@
+plugins {
+    id "com.jfrog.bintray" version "1.6"
+}
+
+apply plugin: 'maven'
+apply plugin: "maven-publish"
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId 'com.cloudrti.client'
+            artifactId 'logging'
+            version '1.0.0'
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
+
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    pkg {
+        repo = 'maven'
+        name = 'cloud-rti-client'
+        userOrg = 'cloud-rti'
+
+        version {
+            name = '1.0.0'
+            licenses = ['Apache-2.0']
+            vcsUrl = "https://github.com/cloudrti/java-client"
+            publications = ['MyPublication']
+        }
+    }
+
+}
+
+
+dependencies {
+    compile "org.slf4j:slf4j-api:1.7.21"
+    runtime "com.github.danielwegener:logback-kafka-appender:0.1.0"
+    compile "ch.qos.logback:logback-classic:1.1.2"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.7.4"
+
+}

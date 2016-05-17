@@ -1,0 +1,6 @@
+rootProject.name = 'client'
+include 'api'
+include 'vertx'
+include 'logging'
+include 'vertx-example'
+

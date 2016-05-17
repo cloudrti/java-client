@@ -1,0 +1,31 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- This is the kafkaAppender -->
+    <appender name="kafkaAppender" class="com.github.danielwegener.logback.kafka.KafkaAppender">
+        <!-- This is the default encoder that encodes every log message to an utf8-encoded string  -->
+        <encoder class="com.github.danielwegener.logback.kafka.encoding.LayoutKafkaMessageEncoder">
+            <layout class="com.cloudrti.vertx.logging.JsonFormat">
+            </layout>
+        </encoder>
+        <topic>cloudrti.logging.${POD_NAMESPACE}</topic>
+        <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.RoundRobinKeyingStrategy" />
+        <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy" />
+
+        <!-- each <producerConfig> translates to regular kafka-client config (format: key=value) -->
+        <!-- producer configs are documented here: https://kafka.apache.org/documentation.html#newproducerconfigs -->
+        <!-- bootstrap.servers is the only mandatory producerConfig -->
+        <producerConfig>bootstrap.servers=${kafka}</producerConfig>
+        <producerConfig>block.on.buffer.full=false</producerConfig>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="kafkaAppender" />
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
