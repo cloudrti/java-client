@@ -18,11 +18,6 @@ public class MyApp {
                     .setRegistryName("my-registry")
                     .addMonitoredHttpServerUri(new Match().setValue("/.*").setType(MatchType.REGEX)));
 
-//    @Override
-//    public void start() throws Exception {
-//
-//    }
-
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx(DROPWIZARD_OPTIONS);
 

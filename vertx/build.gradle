@@ -40,10 +40,11 @@ bintray {
 
 
 dependencies {
-    compile "io.vertx:vertx-core:3.2.1"
-    compile "io.vertx:vertx-web:3.2.1"
-    compile "io.vertx:vertx-dropwizard-metrics:3.2.1"
+    compile "io.vertx:vertx-core:3.3.2"
+    compile "io.vertx:vertx-web:3.3.2"
+    compile "io.vertx:vertx-dropwizard-metrics:3.3.2"
     compile 'com.github.davidb:metrics-influxdb:0.8.2'
+    compile 'io.reactivex:rxjava:1.1.6'
 
     compile project(':api')
 }
