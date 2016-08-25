@@ -13,7 +13,7 @@ import rx.schedulers.Schedulers;
 
 public class VersionHandler {
 
-    private final String VERSION = "1.0.1";
+    private final String VERSION = "1.1.0";
 
     private final Vertx vertx;
     private final static Logger logger = LoggerFactory.getLogger(VersionHandler.class);

@@ -1,4 +1,4 @@
-package com.cloudrti.vertx.logging;
+package com.cloudrti.client.api.env;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

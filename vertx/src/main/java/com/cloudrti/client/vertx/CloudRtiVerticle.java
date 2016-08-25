@@ -44,8 +44,13 @@ public class CloudRtiVerticle extends AbstractVerticle {
             String msg = "Cloud RTI client lib version: " + versionInfo.getString("version");
             logger.info(msg);
 
-            if(versionInfo.getString("hint") != null) {
-                logger.warn(versionInfo.getString("hint"));
+            String hint = versionInfo.getString("hint");
+            if(hint != null) {
+                if(hint.contains("You are on the latest")) {
+                    logger.info(versionInfo.getString("hint"));
+                } else {
+                    logger.warn(versionInfo.getString("hint"));
+                }
             }
         });
 
@@ -56,24 +61,6 @@ public class CloudRtiVerticle extends AbstractVerticle {
                     startFuture.complete();
                 });
 
-        MetricRegistry registry = SharedMetricRegistries.getOrCreate("my-registry");
-
-        String influxdb = getProperty("influxdb");
-        if(influxdb != null && influxdb.length() > 0) {
-            influxdb = influxdb.replaceAll("-", "_");
-
-            final ScheduledReporter reporter = InfluxdbReporter.forRegistry(registry)
-                    .protocol(InfluxdbProtocols.http(influxdb, 8086, getProperty("influxdbuser"), getProperty("influxdbpassword"), getProperty("POD_NAMESPACE")))
-                    .convertRatesTo(TimeUnit.SECONDS)
-                    .convertDurationsTo(TimeUnit.MILLISECONDS)
-                    .filter(MetricFilter.ALL)
-                    .skipIdleMetrics(false)
-                    .transformer(new CategoriesMetricMeasurementTransformer("module", "artifact"))
-                    .build();
-            reporter.start(10, TimeUnit.SECONDS);
-        } else {
-            logger.warn("Property `influxdb` not set. Metrics are disabled");
-        }
 
     }
 

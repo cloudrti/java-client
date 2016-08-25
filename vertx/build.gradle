@@ -11,7 +11,7 @@ publishing {
             from components.java
             groupId 'com.cloudrti.client'
             artifactId 'vertx'
-            version '1.0.1'
+            version '1.1.0'
 
             artifact sourcesJar
             artifact javadocJar
@@ -29,7 +29,7 @@ bintray {
         userOrg = 'cloud-rti'
 
         version {
-            name = '1.0.1'
+            name = '1.1.0'
             licenses = ['Apache-2.0']
             vcsUrl = "https://github.com/cloudrti/java-client"
             publications = ['MyPublication']
@@ -47,5 +47,6 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
 
     compile project(':api')
+    compile project(':logging')
 }
 
