@@ -34,7 +34,7 @@ public class VmStatsVerticle extends AbstractVerticle{
 	public void start(Future<Void> startFuture) throws Exception {
 
 		Properties props = new Properties();
-		props.put("bootstrap.servers", getProperty("kafka"));
+		props.put("bootstrap.servers", getProperty("KAFKA"));
 		props.put("retries", 0);
 		props.put("value.serializer", "org.apache.kafka.common.serialization.ByteArraySerializer");
 		props.put("key.serializer", "org.apache.kafka.common.serialization.ByteArraySerializer");
