@@ -41,7 +41,7 @@ public class CloudRtiVerticle extends AbstractVerticle {
 
         FlightControlHandlers flightControlHandlers = new FlightControlHandlers(vertx);
         router.route("/flightcontrols").handler(flightControlHandlers::handleListFlightControls);
-        router.route("/flightcontrols/:name").handler(flightControlHandlers::handleExecute);
+        router.route("/flightcontrol/:name").handler(flightControlHandlers::handleExecute);
 
 
         VersionHandler versionHandler = new VersionHandler(vertx);
