@@ -1,5 +1,6 @@
 package com.cloudrti.client.vertx;
 
+import com.cloudrti.client.vertx.handlers.FlightControlHandlers;
 import com.cloudrti.client.vertx.handlers.ProbeHandlers;
 import com.cloudrti.client.vertx.handlers.SnapshotHandlers;
 import com.cloudrti.client.vertx.handlers.VersionHandler;
@@ -37,6 +38,11 @@ public class CloudRtiVerticle extends AbstractVerticle {
 
         ProbeHandlers probeHandlers = new ProbeHandlers(vertx);
         router.route("/health").handler(probeHandlers::handleHealthCHeck);
+
+        FlightControlHandlers flightControlHandlers = new FlightControlHandlers(vertx);
+        router.route("/flightcontrols").handler(flightControlHandlers::handleListFlightControls);
+        router.route("/flightcontrols/:name").handler(flightControlHandlers::handleExecute);
+
 
         VersionHandler versionHandler = new VersionHandler(vertx);
         router.route("/version").handler(versionHandler::handleVersion);

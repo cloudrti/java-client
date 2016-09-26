@@ -14,8 +14,13 @@ import io.vertx.ext.dropwizard.MatchType;
  */
 public class MyApp {
 
+    public static final VertxOptions DROPWIZARD_OPTIONS = new VertxOptions().
+            setMetricsOptions(new DropwizardMetricsOptions().setEnabled(true)
+                    .setRegistryName("my-registry")
+                    .addMonitoredHttpServerUri(new Match().setValue("/.*").setType(MatchType.REGEX)));
+
     public static void main(String[] args) {
-        Vertx vertx = Vertx.vertx();
+        Vertx vertx = Vertx.vertx(DROPWIZARD_OPTIONS);
 
         vertx.deployVerticle(new WebVerticle());
         vertx.deployVerticle(new CloudRtiVerticle());
