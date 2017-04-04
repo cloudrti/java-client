@@ -1,3 +1,5 @@
+# DEPRECATED! Contact the CloudRTI team for an uptodate version.
+
 # Cloud RTI Client
 
 This repository contains the plain (non-OSGi) client libraries for Cloud RTI.
